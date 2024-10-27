@@ -36,7 +36,7 @@ pub fn main() {
 fn deploy_glue(modname: String) {
   // mkdir `./dist`
   let dir_name = "dist"
-  let dir = simplifile.verify_is_directory(dir_name)
+  let _dir = simplifile.verify_is_directory(dir_name)
 
   let code = internal.generate_glue(modname)
 
@@ -79,7 +79,7 @@ pub fn compile(modname: String, outfile: String, runtime: String) {
     _ -> Nil
   }
 
-  deploy_glue(modname)
+  let _ = deploy_glue(modname)
 
   // Generate single binary.
   let result = case runtime {
@@ -117,7 +117,7 @@ fn compile_deno(outfile: String, pwd: String) -> Result(String, String) {
     )
   {
     Ok(val) -> Ok(val)
-    Error(val) -> {
+    Error(_val) -> {
       Error("Compile failed.")
     }
   }
