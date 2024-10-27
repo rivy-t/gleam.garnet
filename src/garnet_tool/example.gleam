@@ -13,7 +13,7 @@ import gleam/string
 import gleam_community/ansi
 
 pub fn main() {
-  let word = "gleam"
+  let word = "mistake"
 
   use body <- promise.await(fetch(word))
 
@@ -21,9 +21,13 @@ pub fn main() {
     result.try(body, fn(body) {
       let mean = parse(body)
 
+      io.print(
+        word
+        |> ansi.green,
+      )
       io.println(
-        "Gleam mean..."
-        |> ansi.yellow,
+        " means..."
+        |> ansi.blue,
       )
 
       io.println(
