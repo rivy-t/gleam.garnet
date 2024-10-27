@@ -1,0 +1,44 @@
+# ToDO
+
+<!-- spell-checker:ignore (packages) esgleam (utils) deno -->
+
+## document build process
+
+### requires
+
+- erlang (via `scoop install erlang`)
+- gleam (via `scoop install gleam`)
+- ? rebar3 (via `scoop install rebar3`)
+
+### build garnet and run on example
+
+````shell
+# needed to avoid esgleam build/install error
+# ``` text
+#     Running esgleam/install.main
+# runtime error: let assert
+#
+# Pattern match failed, no pattern matched the value.
+#
+# unmatched value:
+#   Win32
+#
+# stacktrace:
+#   esgleam/mod/platform.get_package_name C:\Users\Roy\AARK\Projects\gleam\gleam.garnet\build\packages\esgleam\src\esgleam\mod\platform.gleam:30
+#   esgleam/mod/install.fetch_latest C:\Users\Roy\AARK\Projects\gleam\gleam.garnet\build\packages\esgleam\src\esgleam\mod\install.gleam:36
+#   esgleam/mod/install.internal_fetch C:\Users\Roy\AARK\Projects\gleam\gleam.garnet\build\packages\esgleam\src\esgleam\mod\install.gleam:53
+# ```
+gleam run -m esgleam/install
+
+# build example to single exe (out.exe)
+gleam run -m garnet_tool garnet_tool/example out.exe
+
+# build self to dist/garnet.exe
+gleam build
+.\build\dev\bin\package\bin\esbuild.exe ./build/dev/javascript/garnet_tool/garnet_tool.mjs --bundle --outdir=./dist --format=esm --platform=node
+printf "import { main } from './garnet_tool.js'; main();" > dist/garnet_tool_glue.js
+deno compile --output dist/garnet.exe -A dist/garnet_tool_glue.js
+
+# use EXE to build example to single exe (out.exe)
+dist/garnet.exe garnet_tool/example out.exe
+````
