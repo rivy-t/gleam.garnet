@@ -8,7 +8,7 @@ import gleam_community/ansi
 import shellout
 import simplifile
 
-const help_message = "garnet - Compile gleam to single binary, via Deno and Bun. 
+const help_message = "garnet - Compile gleam to single binary, via Deno and Bun.
 
 Usage: garnet `target_module` `outname` `runtime`
   target_module(require):   Module name of compile target module.
@@ -55,7 +55,7 @@ fn bundle(target: String) {
 }
 
 /// Compile module to single binary.
-/// 
+///
 /// ```gleam
 /// compile("example", "out", "deno")
 /// ```
